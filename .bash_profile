@@ -22,3 +22,4 @@ if [ $TERM_PROGRAM='iTerm.app' ]; then
 fi
 
 alias ls='ls --color=auto --group-directories-first'
+alias wget="wget --content-disposition"

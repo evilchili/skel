@@ -122,16 +122,22 @@ set t_Co=256
 colorscheme chili
 syntax enable
 
+call pathogen#infect()
+
 " omnicompletion
 filetype plugin on
 set ofu=syntaxcomplete#Complete
-source ~/.vim/plugin/supertab.vim
-let g:SuperTabMappingForward = '<c-space>'
-let g:SuperTabMappingBackward = '<s-c-space>'
 
+" remap completion to control+space
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+\ "\<lt>C-n>" :
+\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
 
-" load pathogen support for plugins
-call pathogen#infect()
+" use the tab key as the tab key
+let g:SuperTabMappingTabLiteral = '<Tab>'
 
 " Shell <somecommand>
 function! s:ExecuteInShell(command, bang)
