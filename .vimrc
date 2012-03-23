@@ -127,6 +127,9 @@ filetype plugin on
 set ofu=syntaxcomplete#Complete
 source ~/.vim/plugin/supertab.vim
 
+" load pathogen support for plugins
+call pathogen#infect()
+
 " Shell <somecommand>
 function! s:ExecuteInShell(command, bang)
 	let _ = a:bang != '' ? s:_ : a:command == '' ? '' : join(map(split(a:command), 'expand(v:val)'))
