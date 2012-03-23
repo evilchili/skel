@@ -59,6 +59,9 @@ function SetFoldType()
 	elseif f == 'css'
 		let g:foldstartexpr = '^\/\*\*\*.*\*\/$'
 		let g:foldendexpr   = '^\/\*.*\*\*\*/$'
+	elseif f == 'sh'
+		let g:foldstartexpr = '^function.*{\s*$'
+		let g:foldendexpr   = '^}\s*$'
 	else 
 		return
 	endif
