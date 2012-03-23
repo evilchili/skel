@@ -126,6 +126,9 @@ syntax enable
 filetype plugin on
 set ofu=syntaxcomplete#Complete
 source ~/.vim/plugin/supertab.vim
+let g:SuperTabMappingForward = '<c-space>'
+let g:SuperTabMappingBackward = '<s-c-space>'
+
 
 " load pathogen support for plugins
 call pathogen#infect()
