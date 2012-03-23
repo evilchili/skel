@@ -23,3 +23,4 @@ fi
 
 alias ls='ls --color=auto --group-directories-first'
 alias wget="wget --content-disposition"
+alias git-export="git archive master | tar -x -C"
