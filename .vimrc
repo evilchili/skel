@@ -25,6 +25,7 @@ endfunction
 " this for *; maybe just your src tree or certain 
 " file types or something.
 autocmd BufWinEnter * %call Embedded()
+autocmd BufNewFile,BufRead *.less set filetype=css
 
 " Create nested folds on custom expressions, based 
 " on the current buffer's filetype or syntax. 
@@ -55,6 +56,9 @@ function SetFoldType()
 	elseif f == 'javascript'
 		let g:foldstartexpr = '^function.*{\s*$'
 		let g:foldendexpr   = '^}\s*$'
+	elseif f == 'css'
+		let g:foldstartexpr = '^\/\*\*\*.*\*\/$'
+		let g:foldendexpr   = '^\/\*.*\*\*\*/$'
 	else 
 		return
 	endif
