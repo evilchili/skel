@@ -110,6 +110,7 @@ set lbr
 set backupdir=~/.vim/backups
 set directory=~/.vim/backups
 set tags=~/.vim/tags
+set shell=bash\ --login
 
 set backupskip=/tmp/*,/private/tmp/*" 
 
