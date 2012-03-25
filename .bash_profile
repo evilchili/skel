@@ -24,3 +24,7 @@ fi
 alias ls='ls --color=auto --group-directories-first'
 alias wget="wget --content-disposition"
 alias git-export="git archive master | tar -x -C"
+
+# use syntax-highlighting with less
+export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+export LESS=' -R '
