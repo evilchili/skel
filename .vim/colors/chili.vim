@@ -80,7 +80,7 @@ exec "hi SpecialKey     cterm=BOLD   ctermfg=" . <SID>X(55) . " ctermbg=" . "NON
 exec "hi Title          cterm=BOLD   ctermfg=" . <SID>X(48) . " ctermbg=" . "NONE"
 exec "hi Visual         cterm=NONE   ctermfg=" . <SID>X(79) . " ctermbg=" . <SID>X(38)
 
-exec "hi Comment        cterm=NONE   ctermfg=" . <SID>X(221) . " ctermbg=" . "NONE"
+exec "hi Comment        cterm=NONE   ctermfg=" . <SID>X(81) . " ctermbg=" . "NONE"
 exec "hi Constant       cterm=NONE   ctermfg=" . <SID>X(73) . " ctermbg=" . "NONE"
 exec "hi String         cterm=NONE   ctermfg=" . <SID>X(38) . " ctermbg=" . "NONE"
 exec "hi Error          cterm=NONE   ctermfg=" . <SID>X(79) . " ctermbg=" . <SID>X(32)
