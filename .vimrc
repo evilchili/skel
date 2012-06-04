@@ -142,7 +142,6 @@ imap <C-@> <C-Space>
 
 " use the tab key as the tab key
 let g:SuperTabMappingTabLiteral = '<tab>'
-exec 'iunmap <tab>'
 
 " Shell <somecommand>
 function! s:ExecuteInShell(command, bang)
