@@ -141,7 +141,8 @@ inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
 imap <C-@> <C-Space>
 
 " use the tab key as the tab key
-let g:SuperTabMappingTabLiteral = '<Tab>'
+let g:SuperTabMappingTabLiteral = '<tab>'
+exec 'iunmap <tab>'
 
 " Shell <somecommand>
 function! s:ExecuteInShell(command, bang)
