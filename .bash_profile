@@ -1,30 +1,30 @@
 # .bashrc
 
-. ~/.profile
-
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+# local profile
+if [ -f ~/.profile ]; then
+	. ~/.profile
+fi
+
+# bash settings
 . ~/.bashrc
 
 export EDITOR=/usr/bin/vim
+export PATH=~/bin:$PATH:/usr/local/mysql/bin:/usr/local/git/bin:/opt/local/bin:/opt/bin
 
-export PATH=$PATH:/usr/local/mysql/bin:~/bin
-
-export LSCOLORS=Hxfxcxdxbxegedabagacad 
-
-PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/$HOME/~}\007"'
-
-if [ $TERM_PROGRAM='iTerm.app' ]; then
-	growl() { if [ $@ ]; then echo -ne "\033]9;\n$@\007"; fi; }
+# enable colorized ls output for Linux and BSD-like platforms
+platform=`uname`
+if [[ $platform == 'Linux' ]]; then
+	alias ls='ls --color=auto --group-directories-first'
+else 
+	export CLICOLOR=1
+	alias ls='ls -G'
 fi
 
-alias ls='ls --color=auto --group-directories-first'
 alias wget="wget --content-disposition"
 alias git-export="git archive master | tar -x -C"
-
-# use syntax-highlighting with less
-export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
-export LESS=' -R '
+alias growl="/usr/local/bin/growlnotify bash -m"

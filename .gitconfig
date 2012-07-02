@@ -1,0 +1,17 @@
+[user]
+	name = Greg Boyington
+	email = greg@automagick.us
+
+[alias]
+	lg = log --graph --pretty=oneline --abbrev-commit --decorate
+
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = auto
+
+[global]
+	sslverify = false
+	editor = vim
