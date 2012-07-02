@@ -1,3 +1,8 @@
+# A two-line bash prompt that looks like this:
+#
+# grognak:greg Mon Jul 02 11:54:01 EDT 2/vi
+# !540 /tmp 
+
 WHITE="\[\033[00;37;01m\]"
 GREEN="\[\033[01;32;01m\]"
 BLUE="\[\033[01;34;01m\]"
