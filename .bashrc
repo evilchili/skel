@@ -12,6 +12,15 @@ DARKGRAY="\[\033[1;30;01m\]"
 LIGHTGRAY="\[\033[00;37;01m\]"
 NOCOLOR="\[\033[00m\]"
 
+function nameTerminal() {
+	# adapted from http://fvue.nl/wiki/NameTerminal
+    [ "${TERM:0:5}" = "xterm" ]   && local ansiNrTab=0
+    [ "$TERM"       = "rxvt" ]    && local ansiNrTab=61
+    [ $ansiNrTab ] && echo -n $'\e'"]$ansiNrTab;\u@\h $1"$'\a'
+    [ $ansiNrWindow -a "$2" ] && echo -n $'\e'"]$ansiNrWindow;\u@\h $2"$'\a'
+} 
+
+
 function set_prompt {
 	if [ `whoami` == "root" ]; then
 		NUM="${RED}!\!"
@@ -27,7 +36,7 @@ function set_prompt {
 		PARENT="${DARKGRAY}${SHLVL}/$(ps -o comm= $PPID)"
 	fi
 	
-	export PS1="${HOSTUSER} ${DATE} ${PARENT}\n${NUM} ${CWD} ${LIGHTRAY}"
+	export PS1="$(nameTerminal)${HOSTUSER} ${DATE} ${PARENT}\n${NUM} ${CWD} ${LIGHTRAY}"
 	export PS2="${YELLOW}    ?${NOCOLOR} "
 	
 }
