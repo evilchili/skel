@@ -12,24 +12,32 @@ DARKGRAY="\[\033[1;30;01m\]"
 LIGHTGRAY="\[\033[00;37;01m\]"
 NOCOLOR="\[\033[00m\]"
 
+# set the display hostname to include the subodmain, if any  
+# subdomain of the host we're on is 'staging'
+HOSTNAME=`hostname -f | grep staging |cut -d . -f1,2`
+if [ "$HOSTNAME" == "" ]; then
+	HOSTNAME="\h"
+fi
+	
 function nameTerminal() {
 	# adapted from http://fvue.nl/wiki/NameTerminal
     [ "${TERM:0:5}" = "xterm" ]   && local ansiNrTab=0
     [ "$TERM"       = "rxvt" ]    && local ansiNrTab=61
-    [ $ansiNrTab ] && echo -n $'\e'"]$ansiNrTab;\u@\h $1"$'\a'
-    [ $ansiNrWindow -a "$2" ] && echo -n $'\e'"]$ansiNrWindow;\u@\h $2"$'\a'
+    [ $ansiNrTab ] && echo -n $'\e'"]$ansiNrTab;\u@${HOSTNAME} $1"$'\a'
+    [ $ansiNrWindow -a "$2" ] && echo -n $'\e'"]$ansiNrWindow;\u@${HOSTNAME} $2"$'\a'
 } 
 
 
 function set_prompt {
+
 	if [ `whoami` == "root" ]; then
 		NUM="${RED}!\!"
 		CWD="${RED}\w"
-		HOSTUSER="${WHITE}\h:${RED}\u"
+		HOSTUSER="${WHITE}${HOSTNAME}:${RED}\u"
 	else
 		NUM="${YELLOW}!\!"
 		CWD="${YELLOW}\w${NOCOLOR}"
-		HOSTUSER="${WHITE}\h:\u"
+		HOSTUSER="${WHITE}${HOSTNAME}:\u"
 	fi
 	DATE="${BLUE}\d \$(date '+%T %Z')"
 	if [ "$SHLVL" -ne "1" ]; then
