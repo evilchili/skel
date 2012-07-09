@@ -32,7 +32,7 @@ function set_prompt {
 
 	if [ `whoami` == "root" ]; then
 		NUM="${RED}!\!"
-		CWD="${RED}\w"
+		CWD="${RED}\w${NOCOLOR}"
 		HOSTUSER="${WHITE}${HOSTNAME}:${RED}\u"
 	else
 		NUM="${YELLOW}!\!"
