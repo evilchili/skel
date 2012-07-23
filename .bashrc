@@ -47,7 +47,7 @@ function set_prompt {
 	if [ "$STY" == "" ]; then
 		SCREENLABEL=""
 	else
-		SCREENLABEL="$(echo $STY|cut -d. -f2) "
+		SCREENLABEL="${YELLOW}$(echo $STY|cut -d. -f2)${NOCOLOR} "
 	fi
 
 	export PS1="$(nameTerminal)${SCREENLABEL}${HOSTUSER} ${DATE} ${PARENT}\n${NUM} ${CWD} ${LIGHTRAY}"
