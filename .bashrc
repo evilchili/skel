@@ -44,7 +44,13 @@ function set_prompt {
 		PARENT="${DARKGRAY}${SHLVL}/$(ps -o comm= $PPID)"
 	fi
 	
-	export PS1="$(nameTerminal)${HOSTUSER} ${DATE} ${PARENT}\n${NUM} ${CWD} ${LIGHTRAY}"
+	if [ "$STY" == "" ]; then
+		SCREENLABEL=""
+	else
+		SCREENLABEL="$(echo $STY|cut -d. -f2) "
+	fi
+
+	export PS1="$(nameTerminal)${SCREENLABEL}${HOSTUSER} ${DATE} ${PARENT}\n${NUM} ${CWD} ${LIGHTRAY}"
 	export PS2="${YELLOW}    ?${NOCOLOR} "
 	
 }
