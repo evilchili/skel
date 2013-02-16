@@ -62,6 +62,9 @@ function SetFoldType()
 	elseif f == 'sh'
 		let g:foldstartexpr = '^function.*{\s*$'
 		let g:foldendexpr   = '^}\s*$'
+	elseif f == 'puppet'
+		let g:foldstartexpr = '^\(node\|class\|define\|package\).*{[^}]*$'
+		let g:foldendexpr   = '^}\s*$'
 	else 
 		return
 	endif
