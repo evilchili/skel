@@ -63,8 +63,8 @@ function SetFoldType()
 		let g:foldstartexpr = '^function.*{\s*$'
 		let g:foldendexpr   = '^}\s*$'
 	elseif f == 'puppet'
-		let g:foldstartexpr = '^\(node\|class\|define\|package\).*{[^}]*$'
-		let g:foldendexpr   = '^}\s*$'
+		let g:foldstartexpr = '^.*{[^}]*$'
+		let g:foldendexpr   = '}\s*\(->\s*\)\?$'
 	else 
 		return
 	endif
@@ -122,6 +122,10 @@ set backupskip=/tmp/*,/private/tmp/*"
 
 set title
 set titlestring=vim:\ %F
+
+" turn on fold indicators
+set foldcolumn=1
+set fdc=2
 
 " we get colors, we get lots and lots of colors
 set bg=dark
