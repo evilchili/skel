@@ -70,8 +70,8 @@ exec "hi DiffChange     cterm=NONE   ctermfg=" . <SID>X(79) . " ctermbg=" . <SID
 exec "hi DiffDelete     cterm=NONE   ctermfg=" . <SID>X(79) . " ctermbg=" . <SID>X(32)
 exec "hi DiffAdd        cterm=NONE   ctermfg=" . <SID>X(79) . " ctermbg=" . <SID>X(20)
 
-exec "hi Folded         cterm=NONE   ctermfg=" . <SID>X(79) . " ctermbg=" . <SID>X(35)
-exec "hi FoldColumn     cterm=NONE   ctermfg=" . <SID>X(39) . " ctermbg=" . <SID>X(80)
+exec "hi Folded         cterm=NONE   ctermfg=" . <SID>X(38) . " ctermbg=" . <SID>X(00)
+exec "hi FoldColumn     cterm=NONE   ctermfg=" . <SID>X(81) . " ctermbg=" . <SID>X(80)
 
 exec "hi Directory      cterm=NONE   ctermfg=" . <SID>X(28) . " ctermbg=" . "NONE"
 exec "hi LineNr         cterm=NONE   ctermfg=" . <SID>X(81) . " ctermbg=" . "NONE"
