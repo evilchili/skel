@@ -196,10 +196,10 @@ syn region coffeeParens matchgroup=coffeeParen start=/(/ end=/)/
 \                       contains=@coffeeAll
 
 " These are highlighted the same as commas since they tend to go together.
-hi def link coffeeBlock coffeeSpecialOp
-hi def link coffeeBracket coffeeBlock
-hi def link coffeeCurly coffeeBlock
-hi def link coffeeParen coffeeBlock
+"hi def link coffeeBlock coffeeSpecialOp
+"hi def link coffeeBracket coffeeBlock
+"hi def link coffeeCurly coffeeBlock
+"hi def link coffeeParen coffeeBlock
 
 " This is used instead of TOP to keep things coffee-specific for good
 " embedding. `contained` groups aren't included.
