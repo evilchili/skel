@@ -136,7 +136,7 @@ syntax enable
 call pathogen#infect()
 
 " omnicompletion
-filetype plugin on
+filetype plugin indent on
 set ofu=syntaxcomplete#Complete
 
 " remap completion to control+space
