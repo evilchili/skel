@@ -107,4 +107,5 @@ if v:version >= 700
     exec "hi SpellLocal     cterm=NONE ctermbg=" . <SID>X(36)
     exec "hi SpellCap       cterm=NONE ctermbg=" . <SID>X(21)
     exec "hi MatchParen     cterm=NONE ctermbg=" . <SID>X(14) . "ctermfg=" . <SID>X(25)
+	exec "hi ColorColumn    cterm=NONE ctermbg=" . <SID>X(81)
 endif

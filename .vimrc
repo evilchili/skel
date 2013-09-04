@@ -99,6 +99,17 @@ function SetPerlIDE()
 endfunction
 autocmd FileType perl call SetPerlIDE()
 
+function SetPythonIDE()
+	" reconfigure for python hackingses
+	
+	" use the builtins from the flake8 bundle
+	let g:flake8_builtins="_,apply"
+
+	" automatically check style when writing a python file
+	autocmd BufWritePost *.py call Flake8()
+
+endfunction
+autocmd FileType python call SetPythonIDE()
 
 " map II :r ~/.vim/template.pod<CR>
 
@@ -131,6 +142,7 @@ set fdc=2
 set bg=dark
 set t_Co=256
 colorscheme chili
+let &colorcolumn=join(range(81,999),",")
 syntax enable
 
 call pathogen#infect()
