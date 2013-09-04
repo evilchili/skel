@@ -105,6 +105,9 @@ function SetPythonIDE()
 	" use the builtins from the flake8 bundle
 	let g:flake8_builtins="_,apply"
 
+	" *weeps*
+	set expandtab
+
 	" automatically check style when writing a python file
 	autocmd BufWritePost *.py call Flake8()
 
