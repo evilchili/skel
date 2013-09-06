@@ -1,0 +1,8 @@
+encoding UTF-8
+altscreen on
+hardstatus off
+startup_message off
+attrcolor b ".I"
+defbce "on"
+term "xterm-256color"
+shell -$SHELL

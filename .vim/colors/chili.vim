@@ -52,7 +52,7 @@ exec "hi ModeMsg        cterm=BOLD   ctermfg=" . <SID>X(38) . " ctermbg=" . "NON
 exec "hi MoreMsg        cterm=BOLD   ctermfg=" . <SID>X(38) . " ctermbg=" . "NONE"
 exec "hi Question       cterm=BOLD   ctermfg=" . <SID>X(52) . " ctermbg=" . "NONE"
 
-exec "hi StatusLine     cterm=NONE   ctermfg=" . <SID>X(85) . " ctermbg=" . <SID>X(81)
+exec "hi StatusLine     cterm=NONE   ctermfg=" . <SID>X(85) . " ctermbg=" . <SID>X(82)
 exec "hi User1          cterm=NONE   ctermfg=" . <SID>X(28) . " ctermbg=" . <SID>X(81)
 exec "hi User2          cterm=NONE   ctermfg=" . <SID>X(39) . " ctermbg=" . <SID>X(81)
 exec "hi StatusLineNC   cterm=NONE   ctermfg=" . <SID>X(84) . " ctermbg=" . <SID>X(81)
@@ -108,4 +108,5 @@ if v:version >= 700
     exec "hi SpellCap       cterm=NONE ctermbg=" . <SID>X(21)
     exec "hi MatchParen     cterm=NONE ctermbg=" . <SID>X(14) . "ctermfg=" . <SID>X(25)
 	exec "hi ColorColumn    cterm=NONE ctermbg=" . <SID>X(81)
+	exec "hi OverLength     cterm=NONE ctermbg=" . <SID>X(32)
 endif

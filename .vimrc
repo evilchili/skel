@@ -100,24 +100,30 @@ endfunction
 autocmd FileType perl call SetPerlIDE()
 
 function SetPythonIDE()
-	" reconfigure for python hackingses
-	
-	" use the builtins from the flake8 bundle
-	let g:flake8_builtins="_,apply"
 
-	" *weeps*
 	set expandtab
 
-	" automatically check style when writing a python file
-	autocmd BufWritePost *.py call Flake8()
+	" set line widths to 100
+	set textwidth=100
+	"match OverLength /\%<101v.\%>100v/
+	let &colorcolumn=join(range(101,999),",")
+	let g:flake8_max_line_length=100
 
+	" reconfigure for python hackingses
+	let g:flake8_builtins="_,apply"
+	autocmd BufWritePost *.py call Flake8()
 endfunction
 autocmd FileType python call SetPythonIDE()
+
+" visual line-length indicator for mail
+autocmd FileType mail set colorcolumn=72
 
 " map II :r ~/.vim/template.pod<CR>
 
 map :sw :w !sudo tee %
 
+set textwidth=100
+set nowrap
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -145,7 +151,6 @@ set fdc=2
 set bg=dark
 set t_Co=256
 colorscheme chili
-let &colorcolumn=join(range(81,999),",")
 syntax enable
 
 call pathogen#infect()
