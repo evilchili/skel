@@ -14,7 +14,7 @@ fi
 . ~/.bashrc
 
 export EDITOR=/usr/bin/vim
-export PATH=~/bin:$PATH:/usr/local/mysql/bin:/usr/local/git/bin:/opt/local/bin:/opt/bin
+export PATH=~/bin:/usr/local/bin:$PATH:/usr/local/mysql/bin:/usr/local/git/bin:/opt/local/bin:/opt/bin
 
 # enable colorized ls output for Linux and BSD-like platforms
 platform=`uname`
