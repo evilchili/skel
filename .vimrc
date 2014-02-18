@@ -114,6 +114,23 @@ function SetPythonIDE()
     " shut up about PEP8 E309, blank lines after class defs.
     let g:PyFlakeDisabledMessages = 'E501,E309'
 
+	" activate the virtual env in vim, for omnicompletes etc.
+	if !empty($VIRTUAL_ENV)
+		:python << EOF
+import os
+virtualenv = os.environ.get('VIRTUAL_ENV', None)
+if virtualenv:
+    activate_this = os.path.join(virtualenv, 'bin', 'activate_this.py')
+if os.path.exists(activate_this):
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
+	endif
+
+	" ensure the virtual env remains configured in subshells
+	set shell=bash\ --norc
+
+	" set CTRL+R to execute the current buffer inside the virtual env
+	nnoremap <buffer>  :exec '!python' shellescape(@%, 1)<cr>
 
 endfunction
 autocmd FileType python call SetPythonIDE()
@@ -157,6 +174,7 @@ colorscheme chili
 syntax enable
 
 call pathogen#infect()
+call pathogen#helptags()
 
 " omnicompletion
 filetype plugin indent on
@@ -172,37 +190,6 @@ imap <C-@> <C-Space>
 
 " use the tab key as the tab key
 let g:SuperTabMappingTabLiteral = '<tab>'
-
-" Shell <somecommand>
-function! s:ExecuteInShell(command, bang)
-	let _ = a:bang != '' ? s:_ : a:command == '' ? '' : join(map(split(a:command), 'expand(v:val)'))
-
-	if (_ != '')
-		let s:_ = _
-		let bufnr = bufnr('%')
-		let winnr = bufwinnr('^' . _ . '$')
-		silent! execute  winnr < 0 ? 'new ' . fnameescape(_) : winnr . 'wincmd w'
-		setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
-		silent! :%d
-		let message = 'Execute ' . _ . '...'
-		call append(0, message)
-		echo message
-		"silent! 2d | resize 1 | redraw
-		silent! execute 'silent! %!'. _
-		"silent! execute 'resize ' . line('$')
-		silent! execute 'syntax on'
-		silent! execute 'autocmd BufUnload <buffer> execute bufwinnr(' . bufnr . ') . ''wincmd w'''
-		"silent! execute 'autocmd BufEnter <buffer> execute ''resize '' .  line(''$'')'
-		silent! execute 'nnoremap <silent> <buffer> <CR> :call <SID>ExecuteInShell(''' . _ . ''', '''')<CR>'
-		silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . _ . ''', '''')<CR>'
-		silent! execute 'nnoremap <silent> <buffer> <LocalLeader>g :execute bufwinnr(' . bufnr . ') . ''wincmd w''<CR>'
-		"nnoremap <silent> <buffer> <C-W>_ :execute 'resize ' . line('$')<CR>
-		silent! syntax on
-	endif
-endfunction
-
-command! -complete=shellcmd -nargs=* -bang Shell call s:ExecuteInShell(<q-args>, '<bang>')
-cabbrev shell Shell
 
 " macvim options
 if has("gui_running")
