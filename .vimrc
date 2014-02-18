@@ -105,13 +105,16 @@ function SetPythonIDE()
 
 	" set line widths to 100
 	set textwidth=100
-	"match OverLength /\%<101v.\%>100v/
+	match OverLength /\%<101v.\%>100v/
 	let &colorcolumn=join(range(101,999),",")
-	let g:flake8_max_line_length=100
 
-	" reconfigure for python hackingses
-	let g:flake8_builtins="_,apply"
-	autocmd BufWritePost *.py call Flake8()
+    " automatically fix PEP8 errors with CTRL+P
+	map  :PyFlakeAuto<Enter>
+
+    " shut up about PEP8 E309, blank lines after class defs.
+    let g:PyFlakeDisabledMessages = 'E501,E309'
+
+
 endfunction
 autocmd FileType python call SetPythonIDE()
 
