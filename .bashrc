@@ -50,7 +50,9 @@ function set_prompt {
 		SCREENLABEL="${YELLOW}$(echo $STY|cut -d. -f2)${NOCOLOR} "
 	fi
 
-	export PS1="$(nameTerminal)${SCREENLABEL}${HOSTUSER} ${DATE} ${PARENT}\n${NUM} ${CWD} ${LIGHTRAY}"
+    GHI="${RED}ghi:$(echo $GHI_TARGET)/$(echo $GHI_MILESTONE)${NOCOLOR}"
+
+	export PS1="$(nameTerminal)${SCREENLABEL}${HOSTUSER} ${DATE} ${GHI} ${PARENT}\n${NUM} ${CWD} ${LIGHTRAY}"
 	export PS2="${YELLOW}    ?${NOCOLOR} "
 	
 }
@@ -70,4 +72,4 @@ else
 	set_prompt
 fi
 
-
+export BASH_SILENCE_DEPRECATION_WARNING=1

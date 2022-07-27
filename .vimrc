@@ -1,3 +1,73 @@
+" ======= DEFAULTS ======= "
+
+set nocompatible
+set textwidth=120
+set nowrap
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set number
+set showmatch
+set ruler
+set backup
+set lbr
+set backupdir=~/.vim/backups
+set directory=~/.vim/backups
+set tags=~/.vim/tags
+set shell=bash\ --login
+
+set backupskip=/tmp/*,/private/tmp/*" 
+
+set title
+set titlestring=vim:\ %F
+
+" turn on fold indicators
+set foldcolumn=1
+set fdc=2
+
+" we get colors, we get lots and lots of colors
+set bg=dark
+set t_Co=256
+colorscheme chili
+syntax enable
+
+" sudo-write
+map :sw :w !sudo tee %
+
+
+" ======= PLUGINS ======= "
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'klen/python-mode'
+Plugin 'YouCompleteMe'
+
+Plugin 'reedes/vim-pencil'           " writing mode
+Plugin 'reedes/vim-colors-pencil'    " colors
+Plugin 'tpope/vim-abolish'           " Fancy abbreviation replacements
+Plugin 'junegunn/limelight.vim'      " Highlights only active paragraph
+Plugin 'junegunn/goyo.vim'           " Full screen writing mode
+Plugin 'reedes/vim-lexical'          " Better spellcheck mappings
+Plugin 'reedes/vim-thematic'         " Themes
+Plugin 'reedes/vim-litecorrect'      " Better autocorrections
+Plugin 'reedes/vim-textobj-sentence' " Treat sentences as text objects
+Plugin 'reedes/vim-wordy'            " Weasel words and passive voice
+
+call vundle#end()
+
+" omnicompletion
+filetype plugin indent on
+
+
+" ======= Functions ======= "
+
 " Embedded() is a function that will parse a text buffer 
 " looking for embedded vim commands, and execute them.
 " Call it with a range of lines to check, eg to check the whole 
@@ -73,6 +143,12 @@ function SetFoldType()
 endfunction
 autocmd BufWinEnter * %call SetFoldType()
 
+" ======= MAIL ======= "
+
+autocmd FileType mail set colorcolumn=79
+
+" ======= PERL ======= "
+
 function SetPerlIDE()
 	" check perl code with :make
 	setlocal makeprg=perl\ -c\ %\ $*
@@ -99,32 +175,15 @@ function SetPerlIDE()
 endfunction
 autocmd FileType perl call SetPerlIDE()
 
+" ======= PYTHON ======= "
+
 function SetPythonIDE()
 
-	set expandtab
+	match OverLength /\%<121v.\%>120v/
+	let &colorcolumn=join(range(121,999),",")
 
-	" set line widths to 100
-	set textwidth=100
-	match OverLength /\%<101v.\%>100v/
-	let &colorcolumn=join(range(101,999),",")
-
-    " automatically fix PEP8 errors with CTRL+P
-	map  :PyFlakeAuto<Enter>
-
-    " shut up about PEP8 E309, blank lines after class defs.
-    let g:PyFlakeDisabledMessages = 'E501,E309'
-
-	" activate the virtual env in vim, for omnicompletes etc.
-	if !empty($VIRTUAL_ENV)
-		:python << EOF
-import os
-virtualenv = os.environ.get('VIRTUAL_ENV', None)
-if virtualenv:
-    activate_this = os.path.join(virtualenv, 'bin', 'activate_this.py')
-if os.path.exists(activate_this):
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
-	endif
+    let g:pymode_options_max_line_length = 120
+    let g:pymode_lint_options_pep8 = {'max_line_length': g:pymode_options_max_line_length}
 
 	" ensure the virtual env remains configured in subshells
 	set shell=bash\ --norc
@@ -135,69 +194,66 @@ EOF
 endfunction
 autocmd FileType python call SetPythonIDE()
 
-" visual line-length indicator for mail
-autocmd FileType mail set colorcolumn=72
+" YouCompleteMe config
+let g:ycm_python_interpreter_path = ''
+let g:ycm_python_sys_path = []
+let g:ycm_extra_conf_vim_data = [
+  \  'g:ycm_python_interpreter_path',
+  \  'g:ycm_python_sys_path'
+  \]
+let g:ycm_global_ycm_extra_conf = '~/ycm_global.py'
 
-" map II :r ~/.vim/template.pod<CR>
 
-map :sw :w !sudo tee %
+" ======= PROSE ======= "
 
-set textwidth=100
-set nowrap
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set autoindent
-set number
-set showmatch
-set ruler
-set backup
-set lbr
-set backupdir=~/.vim/backups
-set directory=~/.vim/backups
-set tags=~/.vim/tags
-set shell=bash\ --login
+augroup pencil
+ autocmd!
+ autocmd filetype markdown,mkd call pencil#init()
+     \ | Thematic pencil
+     \ | Goyo
+     \ | call lexical#init()
+     \ | call litecorrect#init()
+     \ | setl spell spl=en_us fdl=4 noru nonu nornu
+     \ | setl fdo+=search
+     \ | let g:thematic#theme_name = 'pencil'
+augroup END
 
-set backupskip=/tmp/*,/private/tmp/*" 
+let g:pencil#wrapModeDefault = 'soft'
+let g:pencil#textwidth = 74
+let g:pencil#joinspaces = 0
+let g:pencil#cursorwrap = 1
+let g:pencil#conceallevel = 3
+let g:pencil#concealcursor = 'c'
+let g:pencil#softDetectSample = 20
+let g:pencil#softDetectThreshold = 130
+let g:pencil_spell_undercurl = 1
+let g:pencil_higher_contrast_ui = 1
 
-set title
-set titlestring=vim:\ %F
 
-" turn on fold indicators
-set foldcolumn=1
-set fdc=2
+let g:wordy#ring = [
+  \ 'weak',
+  \ ['being', 'passive-voice', ],
+  \ 'weasel',
+  \ ['problematic', 'redundant', ],
+  \ ['colloquial', 'idiomatic', 'similies', ],
+  \ 'art-jargon',
+  \ ['contractions', 'opinion', 'vague-time', 'said-synonyms', ],
+  \ 'adjectives',
+  \ 'adverbs',
+  \ ]
 
-" we get colors, we get lots and lots of colors
-set bg=dark
-set t_Co=256
-colorscheme chili
-syntax enable
+let g:thematic#themes = {
+\ 'pencil_dark' :{'colorscheme': 'pencil',
+\                 'background': 'dark',
+\                 'airline-theme': 'badwolf',
+\                 'ruler': 1,
+\                },
+\ 'pencil_lite' :{'colorscheme': 'pencil',
+\                 'background': 'light',
+\                 'airline-theme': 'light',
+\                 'ruler': 1,
+\                },
+\ }
 
-call pathogen#infect()
-call pathogen#helptags()
-
-" omnicompletion
-filetype plugin indent on
-set ofu=syntaxcomplete#Complete
-
-" remap completion to control+space
-inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
-\ "\<lt>C-n>" :
-\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-imap <C-@> <C-Space>
-
-" use the tab key as the tab key
-let g:SuperTabMappingTabLiteral = '<tab>'
-
-" macvim options
-if has("gui_running")
-	set gfn=Menlo:h12
-	set guioptions-=r
-	set guioptions-=L
-	set guioptions-=T
-	set transparency=10
-	macm Window.Select\ Previous\ Tab  key=<D-S-Left>
-	macm Window.Select\ Next\ Tab	   key=<D-S-Right>
-endif
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
