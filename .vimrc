@@ -47,7 +47,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'klen/python-mode'
-Plugin 'YouCompleteMe'
+Plugin 'ycm-core/YouCompleteMe'
 
 Plugin 'reedes/vim-pencil'           " writing mode
 Plugin 'reedes/vim-colors-pencil'    " colors
