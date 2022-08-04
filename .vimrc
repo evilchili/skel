@@ -24,13 +24,15 @@ set title
 set titlestring=vim:\ %F
 
 " turn on fold indicators
-set foldcolumn=1
-set fdc=2
+" set foldcolumn=1
+" set fdc=2
 
 " we get colors, we get lots and lots of colors
 set bg=dark
+set termguicolors
 set t_Co=256
-colorscheme chili
+colorscheme dali_gold
+let g:airline_theme='zenburn'
 syntax enable
 
 " sudo-write
@@ -59,8 +61,13 @@ Plugin 'reedes/vim-thematic'         " Themes
 Plugin 'reedes/vim-litecorrect'      " Better autocorrections
 Plugin 'reedes/vim-textobj-sentence' " Treat sentences as text objects
 Plugin 'reedes/vim-wordy'            " Weasel words and passive voice
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-markdown'
+
 
 call vundle#end()
+
 
 " omnicompletion
 filetype plugin indent on
@@ -179,8 +186,13 @@ autocmd FileType perl call SetPerlIDE()
 
 function SetPythonIDE()
 
+    " define docstrings for syntax hilighting
+    syn region pythonDocString start=+^\s*"""+ end=+"""+ keepend contains=...
+
+	"match OverLength /\%<121v.\%>120v/
 	match OverLength /\%<121v.\%>120v/
-	let &colorcolumn=join(range(121,999),",")
+
+	" let &colorcolumn=join(range(121,999),",")
 
     let g:pymode_options_max_line_length = 120
     let g:pymode_lint_options_pep8 = {'max_line_length': g:pymode_options_max_line_length}
@@ -209,13 +221,13 @@ let g:ycm_global_ycm_extra_conf = '~/ycm_global.py'
 augroup pencil
  autocmd!
  autocmd filetype markdown,mkd call pencil#init()
-     \ | Thematic pencil
+     \ | Thematic dali_gold_pencil
      \ | Goyo
      \ | call lexical#init()
      \ | call litecorrect#init()
-     \ | setl spell spl=en_us fdl=4 noru nonu nornu
-     \ | setl fdo+=search
-     \ | let g:thematic#theme_name = 'pencil'
+     \ | set spell spl=en_us fdl=4 noru nonu nornu
+     \ | set fdo+=search
+     \ | set ft=markdown
 augroup END
 
 let g:pencil#wrapModeDefault = 'soft'
@@ -229,6 +241,10 @@ let g:pencil#softDetectThreshold = 130
 let g:pencil_spell_undercurl = 1
 let g:pencil_higher_contrast_ui = 1
 
+syn match myExCapitalWords +\<\w*[A-Z]\K*\>\|'s+ contains=@NoSpell
+
+
+
 
 let g:wordy#ring = [
   \ 'weak',
@@ -241,19 +257,6 @@ let g:wordy#ring = [
   \ 'adjectives',
   \ 'adverbs',
   \ ]
-
-let g:thematic#themes = {
-\ 'pencil_dark' :{'colorscheme': 'pencil',
-\                 'background': 'dark',
-\                 'airline-theme': 'badwolf',
-\                 'ruler': 1,
-\                },
-\ 'pencil_lite' :{'colorscheme': 'pencil',
-\                 'background': 'light',
-\                 'airline-theme': 'light',
-\                 'ruler': 1,
-\                },
-\ }
 
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
